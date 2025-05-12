@@ -2,7 +2,6 @@ class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
   skip_before_action :authenticate_request, only: [:create] 
 
-
   def create
     user = User.new(user_params)
     if user.save

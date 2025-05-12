@@ -46,4 +46,12 @@ export const getAllUsers = (token) =>
       headers: { Authorization: `Bearer ${token}` },
       withCredentials: true,
     });
-  
+    export const updateUser = (id, userData, token) => {
+      return axios.patch(`${API_URL}/admin/users/${id}`, userData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      });
+    };

@@ -6,6 +6,9 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user&.valid_password?(params[:password])
+      if !user.active
+         render json: { error: "Account is deactivated. Please contact admin." }, status: :forbidden and return
+      end
       token = JsonWebToken.encode(user_id: user.id)
 
       render json: {
