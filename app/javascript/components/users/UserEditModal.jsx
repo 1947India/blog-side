@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Home from '../auth/Home'
 const UserEditModal = ({ user, onClose, onSave }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);

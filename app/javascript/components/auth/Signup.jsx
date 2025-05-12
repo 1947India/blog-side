@@ -89,15 +89,15 @@ const Signup = () => {
             type="submit"
             className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
           >
-            Sign Up
+            Create User
           </button>
         </form>
-        <p className="mt-4 text-center text-sm">
+        {/* <p className="mt-4 text-center text-sm">
           Already have an account?{' '}
           <Link to="/login" className="text-blue-500 hover:underline">
             Login
           </Link>
-        </p>
+        </p> */}
       </div>
     </div>
   );

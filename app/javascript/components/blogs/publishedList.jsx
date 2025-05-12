@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllPublished } from '../blogs/blogAPI';
-
+import Home from '../auth/Home'
 const PublishedList = () => {
   const [blogs, setBlogs] = useState([]);
 

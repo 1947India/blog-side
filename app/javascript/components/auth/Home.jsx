@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, } from 'react-router-dom';
-import { searchBlog, getAllUsers,getAllPublished } from '../blogs/blogAPI'
+import { searchBlog, getAllUsers, getAllPublished } from '../blogs/blogAPI'
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ const Home = () => {
             </div>
           </div>
         </form>
-        <button
+        {/* <button
           onClick={() => navigate('/blogs/published')}
           className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         >
@@ -110,7 +110,7 @@ const Home = () => {
           className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         >
           Logout
-        </button>
+        </button> */}
         <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {Array.isArray(blogs) && blogs.map((blog, index) => (
             <div
