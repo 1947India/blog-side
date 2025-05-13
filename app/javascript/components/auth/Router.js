@@ -9,6 +9,7 @@ import UserList from '../users/userList';
 import CreateBlog from '../page/CreateBlog';
 import EditBlog from '../page/EditBlog';
 import Layout from '../header/Layout';
+import ProtectedRoute from './components/ProtectedRoute'; // 👈 path adjust as needed
 
 const AppRouter = () => {
   const handleLogout = () => {
@@ -23,12 +24,47 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Protected Routes with Header */}
-        <Route path="/home" element={<Layout onLogout={handleLogout}><Home /></Layout>} />
-        <Route path="/blogs/published" element={<Layout onLogout={handleLogout}><PublishedList /></Layout>} />
-        <Route path="/users" element={<Layout onLogout={handleLogout}><UserList /></Layout>} />
-        <Route path="/blogs/new" element={<Layout onLogout={handleLogout}><CreateBlog /></Layout>} />
-        <Route path="/blogs/:id/edit" element={<Layout onLogout={handleLogout}><EditBlog /></Layout>} />
+        {/* Protected Routes */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}><Home /></Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/blogs/published"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}><PublishedList /></Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}><UserList /></Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/blogs/new"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}><CreateBlog /></Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/blogs/:id/edit"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}><EditBlog /></Layout>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

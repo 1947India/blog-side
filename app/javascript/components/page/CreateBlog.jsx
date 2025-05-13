@@ -7,11 +7,13 @@ const CreateBlog = () => {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState('');
   const [published, setPublished] = useState(true);
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFieldErrors({});
     const token = localStorage.getItem('authToken');
 
     const blogData = {
@@ -27,7 +29,23 @@ const CreateBlog = () => {
       navigate('/home');
     } catch (err) {
       console.error('Error creating blog:', err);
+
+      const apiErrors = err.response?.data?.errors || [];
+      const newFieldErrors = {};
+
+      apiErrors.forEach((errorMsg) => {
+
+        if (errorMsg.toLowerCase().includes('title')) {
+          newFieldErrors.title = errorMsg;
+        }
+        if (errorMsg.toLowerCase().includes('content')) {
+          newFieldErrors.content = errorMsg;
+        }
+      });
+
+      setFieldErrors(newFieldErrors);
     }
+
   };
 
   return (
@@ -43,8 +61,11 @@ const CreateBlog = () => {
             onChange={e => setTitle(e.target.value)}
             placeholder="Blog title"
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
+
           />
+          {fieldErrors.title && (
+            <p className="text-red-500 text-sm mt-1">{fieldErrors.title}</p>
+          )}
         </div>
 
         <div>

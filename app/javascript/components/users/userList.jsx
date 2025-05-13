@@ -5,7 +5,7 @@ import UserEditModal from '../users/UserEditModal';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null); 
+  const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -21,13 +21,11 @@ const UserList = () => {
   const handleSaveUser = async (userId, formData) => {
     try {
       const token = localStorage.getItem('authToken');
-      await updateUser(userId, formData, token); // PATCH request
-  
-      // Update local users list after successful edit
+      await updateUser(userId, formData, token);
       const res = await getAllUsers(token);
       setUsers(res.data);
-  
-      setIsModalOpen(false); // Close modal
+
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -65,7 +63,7 @@ const UserList = () => {
                   <button
                     onClick={() => {
                       setSelectedUser(user);
-                      setIsModalOpen(true); 
+                      setIsModalOpen(true);
                     }}
                     className="text-blue-600 hover:text-blue-800 font-medium transition"
                   >
@@ -79,10 +77,10 @@ const UserList = () => {
       </div>
 
       {isModalOpen && (
-        <UserEditModal 
-          user={selectedUser} 
-          onClose={() => setIsModalOpen(false)} 
-          onSave={handleSaveUser} 
+        <UserEditModal
+          user={selectedUser}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveUser}
         />
       )}
     </div>

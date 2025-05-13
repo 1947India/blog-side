@@ -1,49 +1,48 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    setErrors({});
+
     try {
-      // Make a POST request to your API
-      const response = await axios.post('http://localhost:3000/login', {
-        email,
-        password,
-      }, { withCredentials: true });  // Send credentials (cookies)
+      const response = await axios.post(
+        'http://localhost:3000/login',
+        { email, password },
+        { withCredentials: true }
+      );
 
-      // Check if the response is successful
       if (response.data.message === 'Login successful') {
-        console.log('Login Successful:', response.data);
-
-        // Store the token in localStorage
         localStorage.setItem('authToken', response.data.token);
-
-        // Store user data in localStorage
         localStorage.setItem('user', JSON.stringify(response.data.user));
-
-        // Redirect to the Home page upon successful login
         navigate('/home');
       } else {
-        alert('Login failed: ' + response.data.message);  // Show a failure message
+        setErrors({ general: response.data.message || 'Login failed' });
       }
     } catch (error) {
       console.error('Login Failed:', error);
-      alert('Login failed. Please try again.');
+      const message = error.response?.data?.error || 'Login failed. Please try again.';
+      setErrors({ password: message }); 
     }
   };
-
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg p-6 shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         <form onSubmit={handleLogin} className="space-y-4">
+          {errors.general && (
+            <p className="text-sm text-red-600 text-center">{errors.general}</p>
+          )}
+
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
@@ -54,6 +53,7 @@ const Login = () => {
               required
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700">Password</label>
             <input
@@ -63,7 +63,11 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p> 
+            )}
           </div>
+
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
@@ -71,14 +75,8 @@ const Login = () => {
             Login
           </button>
         </form>
-        {/* <p className="mt-4 text-center text-sm">
-          Don't have an account?{' '}
-          <Link to="/signup" className="text-blue-500 hover:underline">
-            Sign up
-          </Link> */}
-        {/* </p> */}
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Signup = () => {
@@ -8,10 +8,12 @@ const Signup = () => {
   const [role, setRole] = useState('blogger');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setFieldErrors({});
 
     try {
       const response = await axios.post('http://localhost:3000/signup', {
@@ -23,16 +25,27 @@ const Signup = () => {
       });
 
       console.log('Signup Success:', response.data);
-      navigate('/login'); // Redirect after signup
+      navigate('/login');
     } catch (error) {
-      console.error('Signup Failed:', error.response?.data || error.message);
+      const backendErrors = error.response?.data?.errors || {};
+      const newFieldErrors = {};
+
+      Object.keys(backendErrors).forEach((field) => {
+        const reactField =
+          field === 'password_confirmation' ? 'passwordConfirmation' : field;
+
+        newFieldErrors[reactField] = backendErrors[field].join(', ');
+      });
+
+      setFieldErrors(newFieldErrors);
     }
+
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg p-6 shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+        <h2 className="text-2xl font-bold text-center mb-6">Create User</h2>
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">Name</label>
@@ -41,8 +54,11 @@ const Signup = () => {
               className="w-full border p-2 rounded-md mt-1"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
+
             />
+            {fieldErrors.name && (
+              <p className="text-red-500 text-sm mt-1">{fieldErrors.name}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
@@ -53,6 +69,9 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            {fieldErrors.email && (
+              <p className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Role</label>
@@ -74,6 +93,9 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            {fieldErrors.password && (
+              <p className="text-red-500 text-sm mt-1">{fieldErrors.password}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
@@ -84,6 +106,9 @@ const Signup = () => {
               onChange={(e) => setPasswordConfirmation(e.target.value)}
               required
             />
+            {fieldErrors.passwordConfirmation && (
+              <p className="text-red-500 text-sm mt-1">{fieldErrors.passwordConfirmation}</p>
+            )}
           </div>
           <button
             type="submit"
@@ -92,12 +117,6 @@ const Signup = () => {
             Create User
           </button>
         </form>
-        {/* <p className="mt-4 text-center text-sm">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-500 hover:underline">
-            Login
-          </Link>
-        </p> */}
       </div>
     </div>
   );

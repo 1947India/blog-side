@@ -5,17 +5,17 @@ const UserEditModal = ({ user, onClose, onSave }) => {
   const [email, setEmail] = useState(user.email);
   const [role, setRole] = useState(user.role);
   const [active, setActive] = useState(user.active);
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append('user[name]', name);
     formData.append('user[email]', email);
     formData.append('user[role]', role);
     formData.append('user[active]', active);
 
-    onSave(user.id, formData); // Calls the onSave function passed from the parent
+    onSave(user.id, formData);
   };
 
   return (
@@ -31,6 +31,9 @@ const UserEditModal = ({ user, onClose, onSave }) => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+            {fieldErrors.name && (
+              <p className="text-red-500 text-sm mt-1">{fieldErrors.name}</p>
+            )}
           </div>
 
           <div>
@@ -41,6 +44,9 @@ const UserEditModal = ({ user, onClose, onSave }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {fieldErrors.email && (
+              <p className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>
+            )}
           </div>
 
           <div>
