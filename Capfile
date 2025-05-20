@@ -53,7 +53,7 @@ require 'capistrano/rails'
 require 'capistrano/bundler'
 require 'capistrano/rvm'       # or use rbenv if applicable
 require 'capistrano/passenger' # or capistrano3/puma if using Puma
-require 'whenever/capistrano'  # for scheduled jobs
+# require 'whenever/capistrano'  # for scheduled jobs
 
 # Load custom tasks from `lib/capistrano/tasks` if defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
