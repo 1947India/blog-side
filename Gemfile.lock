@@ -105,6 +105,10 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano3-puma (6.0.0)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (>= 5.1, < 7.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -402,6 +406,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  bcrypt_pbkdf
   bootsnap
   brakeman
   capistrano
@@ -409,14 +414,17 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capistrano-rvm
+  capistrano3-puma
   capybara
   cssbundling-rails
   debug
   devise
+  ed25519
   jbuilder
   jsbundling-rails
   jwt
   kamal
+  net-ssh
   pg (~> 1.1)
   pg_search
   propshaft
