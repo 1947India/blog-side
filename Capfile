@@ -49,6 +49,8 @@ require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
 
 # Include Capistrano extensions
+require 'capistrano/puma'
+require 'capistrano/puma/systemd'
 require 'capistrano/rails'
 require 'capistrano/bundler'
 require 'capistrano/rvm'       # or use rbenv if applicable
