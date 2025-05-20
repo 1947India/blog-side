@@ -26,16 +26,23 @@ gem 'jwt'
 
 gem "thruster", require: false
 
+gem 'whenever', require: false
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
+
 end
 
 group :development do
   gem "web-console"
+  gem 'capistrano', require: false
+ gem 'capistrano-rvm', require: false
+ gem 'capistrano-rails', require: false
+ gem 'capistrano-bundler', require: false
+ gem 'capistrano-passenger', require: false
 end
 
 group :test do

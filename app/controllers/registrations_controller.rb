@@ -5,9 +5,10 @@ class RegistrationsController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      render json: { message: "Signup successful" , user: user.as_json(only: [:id, :email, :name,:role]) }, status: :created
+      render json: { message: "Signup successful",user:user  }, status: :created
     else
-      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: user.errors.to_hash(full_messages: true) }, status: :unprocessable_entity
+
     end
   end
 
