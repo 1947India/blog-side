@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.19.2"
 
-server '35.173.213.38', user: 'ubuntu', roles: %w{app db web}, primary: true
+server '3.216.51.54', user: 'ubuntu', roles: %w{app db web}, primary: true
 
 set :application, "blog_side"
 set :repo_url, "git@github.com:1947India/blog-side.git"
