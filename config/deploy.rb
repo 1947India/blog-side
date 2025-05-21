@@ -45,6 +45,8 @@ set :puma_error_log, "#{shared_path}/log/puma.access.log"
 set :puma_preload_app, true
 set :puma_init_active_record, true  # if using ActiveRecord
 set :puma_systemctl_user, :user
+set :puma_conf, "#{shared_path}/puma.rb"
+
 
 namespace :deploy do
   desc 'Initial Deploy'
