@@ -11,7 +11,7 @@ const Home = () => {
     try {
       const token = localStorage.getItem('authToken');
 
-      const response = await axios.get('http://localhost:3000/blogs', {
+      const response = await axios.get('http://3.216.51.54/blogs', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
