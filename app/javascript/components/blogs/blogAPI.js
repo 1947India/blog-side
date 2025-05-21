@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://3.216.51.54';
 
 export const getBlogs = (token) =>
   axios.get(`${API_URL}/blogs`, {
