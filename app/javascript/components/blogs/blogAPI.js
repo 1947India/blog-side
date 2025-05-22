@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://3.216.51.54';
+const API_URL = 'http://localhost:3000';
 
 export const getBlogs = (token) =>
   axios.get(`${API_URL}/blogs`, {
@@ -41,17 +41,17 @@ export const getAllUsers = (token) =>
     headers: { Authorization: `Bearer ${token}` },
     withCredentials: true,
   });
-  export const getAllPublished = (token) =>
-    axios.get(`${API_URL}/blogs/filter?published=false`, {
-      headers: { Authorization: `Bearer ${token}` },
-      withCredentials: true,
-    });
-    export const updateUser = (id, userData, token) => {
-      return axios.patch(`${API_URL}/admin/users/${id}`, userData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      });
-    };
+export const getAllPublished = (token) =>
+  axios.get(`${API_URL}/blogs/filter?published=false`, {
+    headers: { Authorization: `Bearer ${token}` },
+    withCredentials: true,
+  });
+export const updateUser = (id, userData, token) => {
+  return axios.patch(`${API_URL}/admin/users/${id}`, userData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
+    },
+    withCredentials: true,
+  });
+};

@@ -9,7 +9,7 @@ import UserList from '../users/userList';
 import CreateBlog from '../page/CreateBlog';
 import EditBlog from '../page/EditBlog';
 import Layout from '../header/Layout';
-import ProtectedRoute from './components/ProtectedRoute'; // 👈 path adjust as needed
+import ProtectedRoute from './components/ProtectedRoute';
 
 const AppRouter = () => {
   const handleLogout = () => {
@@ -20,7 +20,6 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 

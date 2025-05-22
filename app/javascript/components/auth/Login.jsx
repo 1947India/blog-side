@@ -15,7 +15,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'http://3.216.51.54/login',
+        '/login',
         { email, password },
         { withCredentials: true }
       );
@@ -30,7 +30,7 @@ const Login = () => {
     } catch (error) {
       console.error('Login Failed:', error);
       const message = error.response?.data?.error || 'Login failed. Please try again.';
-      setErrors({ password: message }); 
+      setErrors({ password: message });
     }
   };
 
@@ -64,7 +64,7 @@ const Login = () => {
               required
             />
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p> 
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}
           </div>
 

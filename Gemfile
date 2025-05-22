@@ -17,6 +17,7 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 gem 'rack-cors'
+gem "tailwindcss-rails"
 
 gem "bootsnap", require: false
 
