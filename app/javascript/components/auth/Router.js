@@ -1,6 +1,6 @@
 // AppRouter.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // ✅ Yeh line fix ki
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
@@ -10,6 +10,7 @@ import CreateBlog from '../page/CreateBlog';
 import EditBlog from '../page/EditBlog';
 import Layout from '../header/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
+import BlogDetails from '../blogs/BlogDetails';
 
 const AppRouter = () => {
   const handleLogout = () => {
@@ -20,7 +21,7 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
         {/* Protected Routes */}
@@ -64,6 +65,17 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/blogs/:id"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}><BlogDetails /></Layout>
+            </ProtectedRoute>
+          }
+        />
+
+
       </Routes>
     </Router>
   );

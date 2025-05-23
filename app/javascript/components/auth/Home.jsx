@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate, } from 'react-router-dom';
 import { searchBlog, getAllUsers, getAllPublished } from '../blogs/blogAPI'
@@ -11,7 +12,7 @@ const Home = () => {
     try {
       const token = localStorage.getItem('authToken');
 
-      const response = await axios.get('hhttp://localhost:3000/blogs', {
+      const response = await axios.get('http://localhost:3000/blogs', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -115,24 +116,26 @@ const Home = () => {
           {Array.isArray(blogs) && blogs.map((blog, index) => (
             <div
               key={blog.id}
-              onClick={() => navigate(`/blogs/${blog.id}/edit`)}
+              onClick={() => navigate(`/blogs/${blog.id}`)}
+
+              // onClick={() => navigate(`/blogs/${blog.id}/edit`)}
               className="cursor-pointer max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
-              <a href="#" className="block">
+              <Link to={`/blogs/${blog.id}`} className="block">
                 <img
                   src={`https://picsum.photos/300/200?random=${index + 1}`}
                   alt={`Blog ${blog.id}`}
                   className="w-full h-48 object-cover"
                   loading="lazy"
                 />
-              </a>
+              </Link>
 
               <div className="p-4">
-                <a href="#">
+                <Link to={`/blogs/${blog.id}`}>
                   <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-600">
                     {blog.title}
                   </h2>
-                </a>
+              </Link>
                 <p className="mt-2 text-sm text-gray-600 line-clamp-3">
                   {blog.content}
                 </p>
